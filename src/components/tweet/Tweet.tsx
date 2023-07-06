@@ -5,6 +5,7 @@ import imgPath from "../helpers/imgPath";
 const Tweet: React.FC = () => {
   return (
     <div className={styles.container}>
+      <img className={styles.logo} src={imgPath.logo} alt="goit logo" />
       <div
         className={styles.first__half}
         style={{

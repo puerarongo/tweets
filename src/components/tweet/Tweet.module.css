@@ -7,24 +7,30 @@
   width: 380px;
 }
 
+.logo {
+  position: absolute;
+  z-index: 10;
+  top: 20px;
+  left: 20px;
+}
+
 .first__half {
   padding: 28px 36px 18px;
   height: 168px;
 }
 
-.position__container {
-}
-
 .img {
   position: absolute;
   z-index: 10;
-  top: 40%;
-  right: 40%;
+  top: 38%;
+  right: 36%;
   width: 80px;
   height: 80px;
   background-color: black;
-  border-radius: 50%;
   margin: 0 auto;
+
+  border: 8px solid #ebd8ff;
+  border-radius: 50%;
 }
 
 .line {
