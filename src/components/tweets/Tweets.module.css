@@ -2,3 +2,24 @@
   padding-top: 80px;
   text-align: center;
 }
+
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 28px;
+  font-weight: 700;
+  color: #373737;
+  margin-bottom: 80px;
+}
+
+.tweet__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 22px;
+  gap: 22px;
+  padding: 0 30px;
+}
+
+.tweet__item {
+  margin: 0 auto;
+}
