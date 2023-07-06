@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followingListActions } from "../../redux/slices/followingListSlice";
 import IData from "../../helpers/interface/data.interface";
+import numberTransform from "../../helpers/numberTransform";
 import imgPath from "../../helpers/imgPath";
 import styles from "./Tweet.module.css";
 
@@ -10,6 +11,17 @@ const Tweet: React.FC<IData> = ({ id, user, avatar, tweets, followers }) => {
   const list = useSelector((state: any) => state.followingList);
 
   const clickHandler = () => dispatch(followingListActions.followerAdd(id));
+
+  const followersCount = useCallback(
+    (value: number) => {
+      if (list.followingList.includes(id)) {
+        return numberTransform(value + 1);
+      } else {
+        return numberTransform(value);
+      }
+    },
+    [list, id]
+  );
 
   return (
     <div className={styles.container}>
@@ -32,7 +44,9 @@ const Tweet: React.FC<IData> = ({ id, user, avatar, tweets, followers }) => {
       </div>
       <div className={styles.second__half}>
         <p className={styles.tweet__text}>{tweets} tweets</p>
-        <p className={styles.follower__text}>{followers} followers</p>
+        <p className={styles.follower__text}>
+          {followersCount(followers)} followers
+        </p>
         <button
           type="button"
           className={
