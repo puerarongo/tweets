@@ -1,7 +1,20 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+// todo Components
+import AppHeader from "./appHeader/AppHeader";
+import Home from "./home/Home";
+import Tweets from "./tweets/Tweets";
 
 const App: React.FC = () => {
-  return <h1>Hello World!</h1>;
+  return (
+    <Routes>
+      <Route path="/" element={<AppHeader />}>
+        <Route index element={<Home />} />
+        <Route path="/tweets" element={<Tweets />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;
