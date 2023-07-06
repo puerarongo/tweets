@@ -7,15 +7,29 @@ import Tweet from "../tweet/Tweet";
 import styles from "./Tweets.module.css";
 
 const Tweets: React.FC = () => {
-  const dispatch = useDispatch();
+  const [page, setPage] = useState<number>(1);
+  const [tweets, setTweets] = useState<IData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
   const data = useSelector((state: any) => state.data);
 
   useEffect(() => {
     setLoading(true);
-    dispatch(getData());
+    dispatch(getData(page));
     setLoading(false);
-  }, [dispatch]);
+  }, [dispatch, page]);
+
+  useEffect(() => {
+    if (page === 1) setTweets(data);
+  }, [data, page]);
+
+  const loadMore = () => {
+    dispatch(getData(page + 1));
+    setPage(page + 1);
+
+    console.log("Load More");
+  };
 
   return (
     <div className={styles.container}>
@@ -24,7 +38,7 @@ const Tweets: React.FC = () => {
         {loading ? (
           <Loader />
         ) : (
-          data.map(({ id, user, avatar, tweets, followers }: IData) => {
+          tweets.map(({ id, user, avatar, tweets, followers }: IData) => {
             return (
               <li className={styles.tweet__item} key={id}>
                 <Tweet
@@ -39,6 +53,9 @@ const Tweets: React.FC = () => {
           })
         )}
       </ul>
+      <button type="button" className={styles.load__more} onClick={loadMore}>
+        Load More
+      </button>
     </div>
   );
 };
