@@ -8,11 +8,11 @@ import styles from "./Tweets.module.css";
 
 const Tweets: React.FC = () => {
   const [page, setPage] = useState<number>(1);
-  const [tweets, setTweets] = useState<IData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.data);
+  const data = useSelector((state: any) => state.data.data);
+  const response = useSelector((state: any) => state.data.response);
 
   useEffect(() => {
     setLoading(true);
@@ -21,15 +21,10 @@ const Tweets: React.FC = () => {
   }, [dispatch, page]);
 
   useEffect(() => {
-    if (page === 1) setTweets(data);
-  }, [data, page]);
+    if (!response) console.log("WARNING!");
+  }, [response]);
 
-  const loadMore = () => {
-    dispatch(getData(page + 1));
-    setPage(page + 1);
-
-    console.log("Load More");
-  };
+  const loadMore = () => setPage(page + 1);
 
   return (
     <div className={styles.container}>
@@ -38,7 +33,7 @@ const Tweets: React.FC = () => {
         {loading ? (
           <Loader />
         ) : (
-          tweets.map(({ id, user, avatar, tweets, followers }: IData) => {
+          data.map(({ id, user, avatar, tweets, followers }: IData) => {
             return (
               <li className={styles.tweet__item} key={id}>
                 <Tweet
@@ -53,7 +48,12 @@ const Tweets: React.FC = () => {
           })
         )}
       </ul>
-      <button type="button" className={styles.load__more} onClick={loadMore}>
+      <button
+        type="button"
+        className={styles.load__more}
+        onClick={loadMore}
+        disabled={!response}
+      >
         Load More
       </button>
     </div>

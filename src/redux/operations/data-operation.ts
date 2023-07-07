@@ -9,6 +9,7 @@ export const getData: any = createAsyncThunk(
       const request = await axios.get(
         `${BASE_URL}/tweets?completed=false&page=${page}&limit=3`
       );
+      //console.log("request", request.data);
       return request.data;
     } catch (err) {
       return console.log(err);
