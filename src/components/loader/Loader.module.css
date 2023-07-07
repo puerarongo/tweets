@@ -1,6 +1,6 @@
 .container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
-    padding: 150px auto;
-  }
+  display: flex;
+  justify-content: center;
+  margin-bottom: 120px;
+  padding: 150px auto;
+}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Report } from "notiflix/build/notiflix-report-aio";
+import imgPath from "../../helpers/imgPath";
 import IData from "../../helpers/interface/data.interface";
 import { getData } from "../../redux/operations/data-operation";
 import Loader from "../loader/Loader";
@@ -20,11 +22,13 @@ Report.init({
 const Tweets: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [values, setValues] = useState<IData[]>([]);
   const count = useRef(0);
 
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.data.data);
+  let data = useSelector((state: any) => state.data.data);
   const response = useSelector((state: any) => state.data.response);
+  const list = useSelector((state: any) => state.followingList);
 
   useEffect(() => {
     setLoading(true);
@@ -42,19 +46,55 @@ const Tweets: React.FC = () => {
     }
   }, [response]);
 
+  useEffect(() => {
+    console.log(data);
+    setValues([...data]);
+  }, [data]);
+
   const loadMore = () => {
     setPage(page + 1);
     count.current = 1;
+    setValues([...data]);
+  };
+
+  const selectHandler = (e: any) => {
+    let newArr = [];
+    switch (e.target.value) {
+      case "follow":
+        newArr = data.filter((el: any) => !list.followingList.includes(el.id));
+        console.log("follow", newArr);
+        setValues([...newArr]);
+        return;
+      case "following":
+        newArr = data.filter((el: any) => list.followingList.includes(el.id));
+        console.log("following", newArr);
+        setValues([...newArr]);
+        return;
+      default:
+        setValues([...data]);
+        return;
+    }
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Tweets</h1>
-      <ul className={styles.tweet__list}>
-        {loading ? (
-          <Loader />
-        ) : (
-          data.map(({ id, user, avatar, tweets, followers }: IData) => {
+      <Link to="/" className={styles.back}>
+        <svg className={styles.back__svg}>
+          <use href={imgPath.arrow + "#arrow"}></use>
+        </svg>
+        <p className={styles.back__text}>Back</p>
+      </Link>
+      <h2 className={styles.title}>Tweets</h2>
+      <select className={styles.select} onChange={selectHandler}>
+        <option value="all">Show all</option>
+        <option value="follow">Follow</option>
+        <option value="following">Followings</option>
+      </select>
+      {loading || data.length < 1 ? (
+        <Loader />
+      ) : values.length > 0 ? (
+        <ul className={styles.tweet__list}>
+          {values.map(({ id, user, avatar, tweets, followers }: IData) => {
             return (
               <li className={styles.tweet__item} key={id}>
                 <Tweet
@@ -66,9 +106,13 @@ const Tweets: React.FC = () => {
                 />
               </li>
             );
-          })
-        )}
-      </ul>
+          })}
+        </ul>
+      ) : (
+        <div className={styles.no__data}>
+          <h2 className={styles.no__text}>No tweets data</h2>
+        </div>
+      )}
       <button
         type="button"
         className={styles.load__more}
