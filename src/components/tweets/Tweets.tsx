@@ -46,10 +46,7 @@ const Tweets: React.FC = () => {
     }
   }, [response]);
 
-  useEffect(() => {
-    console.log(data);
-    setValues([...data]);
-  }, [data]);
+  useEffect(() => setValues([...data]), [data]);
 
   const loadMore = () => {
     setPage(page + 1);
