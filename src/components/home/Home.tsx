@@ -10,7 +10,11 @@ const Home: React.FC = () => {
           Try yourself in IT - take a free layout marathon and create your first
           website
         </p>
-        <a className={styles.link} href="https://goit.global/ua/">
+        <a
+          className={styles.link}
+          href="https://goit.global/ua/"
+          aria-label="Link outside the application to the official website GoIT"
+        >
           Join
         </a>
       </div>

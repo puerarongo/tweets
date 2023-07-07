@@ -12,6 +12,7 @@ const Navigation: React.FC = () => {
               `${isActive ? styles.link__active : styles.link}`
             }
             to="/"
+            aria-label="Link to home page"
           >
             Home
           </NavLink>
@@ -21,6 +22,7 @@ const Navigation: React.FC = () => {
               `${isActive ? styles.link__active : styles.link}`
             }
             to="/tweets"
+            aria-label="Link to tweets page"
           >
             Tweets
           </NavLink>

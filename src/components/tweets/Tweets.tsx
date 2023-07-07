@@ -62,12 +62,10 @@ const Tweets: React.FC = () => {
     switch (e.target.value) {
       case "follow":
         newArr = data.filter((el: any) => !list.followingList.includes(el.id));
-        console.log("follow", newArr);
         setValues([...newArr]);
         return;
       case "following":
         newArr = data.filter((el: any) => list.followingList.includes(el.id));
-        console.log("following", newArr);
         setValues([...newArr]);
         return;
       default:
@@ -78,7 +76,11 @@ const Tweets: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Link to="/" className={styles.back}>
+      <Link
+        to="/"
+        className={styles.back}
+        aria-label="Link to return to home page"
+      >
         <svg className={styles.back__svg}>
           <use href={imgPath.arrow + "#arrow"}></use>
         </svg>

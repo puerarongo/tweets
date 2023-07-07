@@ -1,13 +1,12 @@
 import React from "react";
-import styles from "./AppHeader.module.css";
-import Navigation from "../navigation/Navigation";
 import { Outlet } from "react-router-dom";
+import Navigation from "../navigation/Navigation";
 
 const AppHeader: React.FC = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <Navigation />
-      <main className={styles.main}>
+      <main>
         <Outlet />
       </main>
     </div>
