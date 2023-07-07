@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Report } from "notiflix/build/notiflix-report-aio";
 import IData from "../../helpers/interface/data.interface";
 import { getData } from "../../redux/operations/data-operation";
 import Loader from "../loader/Loader";
 import Tweet from "../tweet/Tweet";
 import styles from "./Tweets.module.css";
 
+Report.init({
+  warning: {
+    svgColor: "#5736a3",
+    titleColor: "#373737",
+    messageColor: "#373737",
+    buttonBackground: "#5736a3",
+    buttonColor: "#fff",
+  },
+});
+
 const Tweets: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const count = useRef(0);
 
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.data.data);
@@ -21,10 +33,19 @@ const Tweets: React.FC = () => {
   }, [dispatch, page]);
 
   useEffect(() => {
-    if (!response) console.log("WARNING!");
+    if (!response && count.current === 1) {
+      Report.warning(
+        "Warning",
+        "Sorry, there are no more tweets available in the database.",
+        "OK"
+      );
+    }
   }, [response]);
 
-  const loadMore = () => setPage(page + 1);
+  const loadMore = () => {
+    setPage(page + 1);
+    count.current = 1;
+  };
 
   return (
     <div className={styles.container}>

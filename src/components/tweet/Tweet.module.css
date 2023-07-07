@@ -83,8 +83,19 @@
   border: none;
 
   box-shadow: 0 3.4px 3.4px 0 rgba(0, 0, 0, 25%);
+
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .button__active {
   background-color: #5cd3a8;
+}
+
+.button:hover {
+  background-color: #d2c3e0;
+}
+
+.button__active:hover {
+  background-color: rgb(77, 170, 136);
 }

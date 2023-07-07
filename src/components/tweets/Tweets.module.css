@@ -42,6 +42,13 @@
 
   box-shadow: 0 3.4px 3.4px 0 rgba(0, 0, 0, 25%);
   margin-bottom: 80px;
+
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.load__more:hover {
+  background: linear-gradient(#40199b 100%, #4d318f 100%, #402481 100%);
 }
 
 .load__more:disabled,
