@@ -1,7 +1,7 @@
 {
   "name": "tweets",
   "version": "0.1.0",
-  "homepage": "https://puerarongo.github.io/",
+  "homepage": "https://puerarongo.github.io/tweets",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
