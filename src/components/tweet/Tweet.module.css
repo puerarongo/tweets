@@ -17,6 +17,8 @@
 .first__half {
   padding: 28px 36px 18px;
   height: 168px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .img {

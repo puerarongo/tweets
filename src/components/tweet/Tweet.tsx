@@ -26,14 +26,11 @@ const Tweet: React.FC<IData> = ({ id, user, avatar, tweets, followers }) => {
   return (
     <div className={styles.container}>
       <img className={styles.logo} src={imgPath.logo} alt="goit logo" />
-      <div
+      <img
         className={styles.first__half}
-        style={{
-          backgroundImage: `url(${imgPath.background})`,
-          backgroundRepeat: `no-repeat`,
-          backgroundPosition: `50% 50%`,
-        }}
-      ></div>
+        src={imgPath.background}
+        alt="background for tweet"
+      />
       <div className={styles.position__container}>
         <img
           className={styles.img}
