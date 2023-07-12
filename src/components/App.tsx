@@ -15,8 +15,8 @@ const App: React.FC = () => {
         <Route path="/" element={<AppHeader />}>
           <Route index element={<Home />} />
           <Route path="/tweets" element={<Tweets />} />
-          <Route path="*" element={<Home />} />
         </Route>
+        <Route path="*" element={<Home />} />
       </Routes>
     </Suspense>
   );
